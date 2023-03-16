@@ -342,6 +342,7 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   void _setAnimationConfiguration(Duration audioDuration) async {
     setState(() {
+      _remainingTime = '';
       _remainingTime = widget.formatDuration!(audioDuration);
     });
     debugPrint("_setAnimationConfiguration $_remainingTime");
