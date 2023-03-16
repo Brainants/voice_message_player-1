@@ -39,7 +39,7 @@ class VoiceMessage extends StatefulWidget {
   }) : super(key: key);
 
   final String? audioSrc;
-  final String? audioFilePath;
+  String? audioFilePath;
   final Duration? duration;
   final bool showDuration;
   final List<double>? waveForm;
@@ -77,8 +77,12 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   @override
   void initState() {
-    super.initState();
+    widget.formatDuration ??= (Duration duration) {
+      return duration.toString().substring(2, 11);
+    };
+
     _setDuration();
+    super.initState();
     stream = _player.onPlayerStateChanged.listen((event) {
       switch (event) {
         case PlayerState.stopped:
@@ -102,7 +106,7 @@ class _VoiceMessageState extends State<VoiceMessage>
     });
     _player.onPositionChanged.listen(
       (Duration p) => setState(
-        () => _remainingTime = p.toString().substring(2, 7),
+        () => _remainingTime = p.toString().substring(2, 11),
       ),
     );
   }
@@ -205,9 +209,7 @@ class _VoiceMessageState extends State<VoiceMessage>
               SizedBox(
                 width: 50,
                 child: Text(
-                  _remainingTime == "00:00"
-                      ? _audioDuration.toString().substring(2, 7)
-                      : _remainingTime,
+                  _remainingTime,
                   style: TextStyle(
                     fontSize: 10,
                     color: widget.me ? widget.meFgColor : widget.contactFgColor,
@@ -318,7 +320,6 @@ class _VoiceMessageState extends State<VoiceMessage>
     }
     duration = _audioDuration!.inMilliseconds;
     maxDurationForSlider = duration + .0;
-    setState(() {});
 
     ///
     _controller = AnimationController(
