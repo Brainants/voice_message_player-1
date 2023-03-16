@@ -39,7 +39,7 @@ class VoiceMessage extends StatefulWidget {
   }) : super(key: key);
 
   final String? audioSrc;
-  Future<File>? audioFile;
+  File? audioFile;
   final Duration? duration;
   final bool showDuration;
   final List<double>? waveForm;
@@ -300,7 +300,7 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   void _startPlaying() async {
     if (widget.audioFile != null) {
-      String path = (await widget.audioFile!).path;
+      String path = widget.audioFile!.path;
       debugPrint("> _startPlaying path $path");
       await _player.play(DeviceFileSource(path));
     } else if (widget.audioSrc != null) {
