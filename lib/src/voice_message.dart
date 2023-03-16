@@ -96,7 +96,7 @@ class _VoiceMessageState extends State<VoiceMessage>
         case PlayerState.completed:
           _player.seek(const Duration(milliseconds: 0));
           duration = _audioDuration!.inMilliseconds;
-          _remainingTime = widget.formatDuration!(_audioDuration!);
+          _remainingTime = _audioDuration.toString().substring(2, 7);
           setState(() {});
           break;
         default:
