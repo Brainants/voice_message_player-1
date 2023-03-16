@@ -209,7 +209,9 @@ class _VoiceMessageState extends State<VoiceMessage>
               SizedBox(
                 width: 50,
                 child: Text(
-                  _remainingTime,
+                  _remainingTime != "00:00"
+                      ? _remainingTime
+                      : widget.formatDuration!(widget.duration!),
                   style: TextStyle(
                     fontSize: 10,
                     color: widget.me ? widget.meFgColor : widget.contactFgColor,
