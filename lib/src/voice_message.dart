@@ -77,12 +77,8 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   @override
   void initState() {
-    widget.formatDuration ??= (Duration duration) {
-      return duration.toString().substring(2, 7);
-    };
-
-    _setDuration();
     super.initState();
+    _setDuration();
     stream = _player.onPlayerStateChanged.listen((event) {
       switch (event) {
         case PlayerState.stopped:
@@ -209,7 +205,9 @@ class _VoiceMessageState extends State<VoiceMessage>
               SizedBox(
                 width: 50,
                 child: Text(
-                  _remainingTime,
+                  _remainingTime == "00:00"
+                      ? _audioDuration.toString().substring(2, 7)
+                      : _remainingTime,
                   style: TextStyle(
                     fontSize: 10,
                     color: widget.me ? widget.meFgColor : widget.contactFgColor,
@@ -320,6 +318,7 @@ class _VoiceMessageState extends State<VoiceMessage>
     }
     duration = _audioDuration!.inMilliseconds;
     maxDurationForSlider = duration + .0;
+    setState(() {});
 
     ///
     _controller = AnimationController(
