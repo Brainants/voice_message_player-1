@@ -95,9 +95,10 @@ class _VoiceMessageState extends State<VoiceMessage>
           break;
         case PlayerState.completed:
           _player.seek(const Duration(milliseconds: 0));
-          duration = _audioDuration!.inMilliseconds;
-          _remainingTime = _audioDuration.toString().substring(2, 7);
-          setState(() {});
+          setState(() {
+            duration = _audioDuration!.inMilliseconds;
+            _remainingTime = widget.formatDuration!(_audioDuration!);
+          });
           break;
         default:
           break;
@@ -342,7 +343,6 @@ class _VoiceMessageState extends State<VoiceMessage>
 
   void _setAnimationConfiguration(Duration audioDuration) async {
     setState(() {
-      _remainingTime = '';
       _remainingTime = widget.formatDuration!(audioDuration);
     });
     debugPrint("_setAnimationConfiguration $_remainingTime");
