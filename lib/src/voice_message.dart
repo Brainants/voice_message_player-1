@@ -78,7 +78,7 @@ class _VoiceMessageState extends State<VoiceMessage>
   @override
   void initState() {
     widget.formatDuration ??= (Duration duration) {
-      return duration.toString().substring(2, 11);
+      return duration.toString().substring(2, 7);
     };
 
     _setDuration();
@@ -106,7 +106,7 @@ class _VoiceMessageState extends State<VoiceMessage>
     });
     _player.onPositionChanged.listen(
       (Duration p) => setState(
-        () => _remainingTime = p.toString().substring(2, 11),
+        () => _remainingTime = p.toString().substring(2, 7),
       ),
     );
   }
@@ -209,7 +209,9 @@ class _VoiceMessageState extends State<VoiceMessage>
               SizedBox(
                 width: 50,
                 child: Text(
-                  _remainingTime,
+                  _remainingTime == "00:00"
+                      ? widget.formatDuration!(_audioDuration!)
+                      : _remainingTime,
                   style: TextStyle(
                     fontSize: 10,
                     color: widget.me ? widget.meFgColor : widget.contactFgColor,
