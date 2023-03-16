@@ -95,10 +95,9 @@ class _VoiceMessageState extends State<VoiceMessage>
           break;
         case PlayerState.completed:
           _player.seek(const Duration(milliseconds: 0));
-          setState(() {
-            duration = _audioDuration!.inMilliseconds;
-            _remainingTime = widget.formatDuration!(_audioDuration!);
-          });
+          duration = _audioDuration!.inMilliseconds;
+          _remainingTime = widget.formatDuration!(_audioDuration!);
+          setState(() {});
           break;
         default:
           break;
@@ -209,9 +208,7 @@ class _VoiceMessageState extends State<VoiceMessage>
               SizedBox(
                 width: 50,
                 child: Text(
-                  _remainingTime == "00:00"
-                      ? widget.formatDuration!(_audioDuration!)
-                      : _remainingTime,
+                  _remainingTime,
                   style: TextStyle(
                     fontSize: 10,
                     color: widget.me ? widget.meFgColor : widget.contactFgColor,
