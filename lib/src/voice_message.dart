@@ -76,6 +76,14 @@ class _VoiceMessageState extends State<VoiceMessage>
   AnimationController? _controller;
 
   @override
+  void didUpdateWidget(VoiceMessage oldWidget) {
+    debugPrint("Old widget: ${oldWidget.duration}");
+    debugPrint("new widget: ${widget.duration}");
+    setState(() {});
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   void initState() {
     widget.formatDuration ??= (Duration duration) {
       return duration.toString().substring(2, 11);
