@@ -320,7 +320,7 @@ class _VoiceMessageState extends State<VoiceMessage>
     } else {
       _audioDuration = await jsAudio.AudioPlayer().setUrl(widget.audioSrc!);
     }
-    duration = _audioDuration!.inMilliseconds;
+    duration = widget.duration!.inMilliseconds;
     maxDurationForSlider = duration + .0;
 
     ///
@@ -328,7 +328,7 @@ class _VoiceMessageState extends State<VoiceMessage>
       vsync: this,
       lowerBound: 0,
       upperBound: noiseWidth,
-      duration: _audioDuration,
+      duration: widget.duration,
     );
 
     ///
